@@ -1,4 +1,3 @@
-//
 //  ContentView.swift
 //  BAC-Tracker
 //
@@ -6,16 +5,36 @@
 //
 
 import SwiftUI
+import HealthKit
 
 struct ContentView: View {
-    var body: some View {
-        Text("Hello, world!")
-            .padding()
-    }
-}
+    @State private var bacInput: String = ""
+    @State private var latestBAC: Double = 0.0
+    @ObservedObject private var healthStore = HealthStore()
 
-struct ContentView_Previews: PreviewProvider {
-    static var previews: some View {
-        ContentView()
+    var body: some View {
+        VStack {
+            TextField("Enter your BAC", text: $bacInput)
+                .textFieldStyle(RoundedBorderTextFieldStyle())
+                .keyboardType(.decimalPad)
+                .padding()
+
+            Button("Submit BAC") {
+                if let bacValue = Double(bacInput) {
+                    healthStore.addBACData(bacValue: bacValue)
+                    latestBAC = bacValue // update latestBAC here
+                    bacInput = ""
+                }
+            }
+            .padding()
+
+            Text("Latest BAC: \(latestBAC, specifier: "%.3f")")
+                .padding()
+        }
+        .onAppear {
+            healthStore.getLatestBAC { result in
+                latestBAC = result
+            }
+        }
     }
 }

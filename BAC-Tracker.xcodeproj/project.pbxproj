@@ -11,6 +11,8 @@
 		6BCBA9592A127EF200007FBF /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BCBA9582A127EF200007FBF /* ContentView.swift */; };
 		6BCBA95B2A127EF600007FBF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6BCBA95A2A127EF600007FBF /* Assets.xcassets */; };
 		6BCBA95E2A127EF600007FBF /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6BCBA95D2A127EF600007FBF /* Preview Assets.xcassets */; };
+		6BCBA9652A127F5700007FBF /* HealthStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BCBA9642A127F5700007FBF /* HealthStore.swift */; };
+		6BCBA9692A12803B00007FBF /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6BCBA9682A12803B00007FBF /* HealthKit.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -19,6 +21,10 @@
 		6BCBA9582A127EF200007FBF /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		6BCBA95A2A127EF600007FBF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		6BCBA95D2A127EF600007FBF /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		6BCBA9642A127F5700007FBF /* HealthStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthStore.swift; sourceTree = "<group>"; };
+		6BCBA9662A12803B00007FBF /* BAC-Tracker.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "BAC-Tracker.entitlements"; sourceTree = "<group>"; };
+		6BCBA9682A12803B00007FBF /* HealthKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HealthKit.framework; path = System/Library/Frameworks/HealthKit.framework; sourceTree = SDKROOT; };
+		6BCBA96A2A12810200007FBF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -26,6 +32,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6BCBA9692A12803B00007FBF /* HealthKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -37,6 +44,7 @@
 			children = (
 				6BCBA9552A127EF200007FBF /* BAC-Tracker */,
 				6BCBA9542A127EF200007FBF /* Products */,
+				6BCBA9672A12803B00007FBF /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -51,10 +59,13 @@
 		6BCBA9552A127EF200007FBF /* BAC-Tracker */ = {
 			isa = PBXGroup;
 			children = (
+				6BCBA96A2A12810200007FBF /* Info.plist */,
+				6BCBA9662A12803B00007FBF /* BAC-Tracker.entitlements */,
 				6BCBA9562A127EF200007FBF /* BAC_TrackerApp.swift */,
 				6BCBA9582A127EF200007FBF /* ContentView.swift */,
 				6BCBA95A2A127EF600007FBF /* Assets.xcassets */,
 				6BCBA95C2A127EF600007FBF /* Preview Content */,
+				6BCBA9642A127F5700007FBF /* HealthStore.swift */,
 			);
 			path = "BAC-Tracker";
 			sourceTree = "<group>";
@@ -65,6 +76,14 @@
 				6BCBA95D2A127EF600007FBF /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		6BCBA9672A12803B00007FBF /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				6BCBA9682A12803B00007FBF /* HealthKit.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -138,6 +157,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6BCBA9592A127EF200007FBF /* ContentView.swift in Sources */,
+				6BCBA9652A127F5700007FBF /* HealthStore.swift in Sources */,
 				6BCBA9572A127EF200007FBF /* BAC_TrackerApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -264,12 +284,16 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "BAC-Tracker/BAC-Tracker.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"BAC-Tracker/Preview Content\"";
 				DEVELOPMENT_TEAM = VX94UJV87E;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "BAC-Tracker/Info.plist";
+				INFOPLIST_KEY_NSHealthShareUsageDescription = "BAC-Tracker wants to access now please";
+				INFOPLIST_KEY_NSHealthUpdateUsageDescription = "BAC-Tracker wants to access now please";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -293,12 +317,16 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "BAC-Tracker/BAC-Tracker.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"BAC-Tracker/Preview Content\"";
 				DEVELOPMENT_TEAM = VX94UJV87E;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "BAC-Tracker/Info.plist";
+				INFOPLIST_KEY_NSHealthShareUsageDescription = "BAC-Tracker wants to access now please";
+				INFOPLIST_KEY_NSHealthUpdateUsageDescription = "BAC-Tracker wants to access now please";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
