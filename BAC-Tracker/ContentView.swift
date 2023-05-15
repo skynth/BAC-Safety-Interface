@@ -1,9 +1,3 @@
-//  ContentView.swift
-//  BAC-Tracker
-//
-//  Created by Anthony Sky Ng-Thow-Hing on 5/15/23.
-//
-
 import SwiftUI
 import HealthKit
 
@@ -13,23 +7,50 @@ struct ContentView: View {
     @ObservedObject private var healthStore = HealthStore()
 
     var body: some View {
-        VStack {
-            TextField("Enter your BAC", text: $bacInput)
-                .textFieldStyle(RoundedBorderTextFieldStyle())
-                .keyboardType(.decimalPad)
-                .padding()
+        ZStack {
+            VStack {
+                Text("BAC Tracker")
+                    .font(.largeTitle)
+                    .fontWeight(.bold)
+                    .foregroundColor(Color.blue)
+                    .padding(.bottom, 50)
 
-            Button("Submit BAC") {
-                if let bacValue = Double(bacInput) {
-                    healthStore.addBACData(bacValue: bacValue)
-                    latestBAC = bacValue // update latestBAC here
-                    bacInput = ""
+                TextField("Enter your BAC", text: $bacInput)
+                    .padding()
+                    .background(Color.white.opacity(0.7))
+                    .cornerRadius(15)
+                    .keyboardType(.decimalPad)
+                    .padding([.leading, .trailing], 20)
+
+                Button(action: {
+                    if let bacValue = Double(bacInput) {
+                        healthStore.addBACData(bacValue: bacValue)
+                        latestBAC = bacValue // update latestBAC here
+                        bacInput = ""
+                    }
+                }) {
+                    Text("Submit BAC")
+                        .frame(minWidth: 0, maxWidth: .infinity)
+                        .frame(height: 50)
+                        .foregroundColor(.white)
+                        .font(.system(size: 20, weight: .bold, design: .rounded))
+                        .background(Color.blue).cornerRadius(15)
+                        .padding([.leading, .trailing], 20)
                 }
-            }
-            .padding()
 
-            Text("Latest BAC: \(latestBAC, specifier: "%.3f")")
-                .padding()
+                HStack {
+                    Text("Latest BAC: ")
+                        .font(.title3)
+                        .fontWeight(.medium)
+                        .foregroundColor(Color.blue)
+
+                    Text("\(latestBAC, specifier: "%.3f")")
+                        .font(.title2)
+                        .fontWeight(.bold)
+                        .foregroundColor(Color.blue)
+                }
+                .padding(.top, 30)
+            }
         }
         .onAppear {
             healthStore.getLatestBAC { result in
@@ -38,3 +59,4 @@ struct ContentView: View {
         }
     }
 }
+
