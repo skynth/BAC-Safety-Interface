@@ -30,7 +30,12 @@ struct HomeView: View {
                 Button(action: {
                     if let bacValue = Double(bacInput) {
                         healthStore.addBACData(bacValue: bacValue)
-                        latestBAC = bacValue // update latestBAC here
+                        healthStore.getLatestBAC { result in
+                            latestBAC = result //update latestBAC
+                        }
+                        healthStore.getAllBACData { result in
+                            allBACData = result //update AllBACData
+                        }
                         bacInput = ""
                     }
                 }) {
@@ -86,23 +91,18 @@ struct ChartView: UIViewRepresentable {
     func makeUIView(context: Context) -> OCKCartesianChartView {
         let chartView = OCKCartesianChartView(type: .bar)
         chartView.headerView.titleLabel.text = "BAC Level"
-//        var dataSeries = OCKDataSeries(values: data.m\ap { CGFloat($0) }, title: "BAC")
-//        dataSeries.gradientEndColor = UIColor(Color("Main"))
-//        dataSeries.gradientStartColor = UIColor(Color("Main"))
-//        chartView.graphView.dataSeries = [dataSeries]
-        var dataSeries = OCKDataSeries(values: [0, 1, 1, 2, 3, 3, 2], title: "BAC") //Need to replace with call to HealthStore
+        var dataSeries = OCKDataSeries(values: data.map { CGFloat($0) }, title: "BAC") //transform the data array by converting each element from Double to CGFloat
         dataSeries.gradientEndColor = UIColor(Color("Main"))
         dataSeries.gradientStartColor = UIColor(Color("Main"))
         chartView.graphView.dataSeries = [dataSeries]
-        
         return chartView
     }
 
-    func updateUIView(_ uiView: OCKCartesianChartView, context: Context) {
-//        var dataSeries = OCKDataSeries(values: data.map { CGFloat($0) }, title: "BAC")
-//        dataSeries.gradientEndColor = UIColor(Color("Main"))
-//        dataSeries.gradientStartColor = UIColor(Color("Main"))
-//        uiView.graphView.dataSeries = [dataSeries]
+    func updateUIView(_ uiView: OCKCartesianChartView, context: Context){
+        var dataSeries = OCKDataSeries(values: data.map { CGFloat($0) }, title: "BAC")
+        dataSeries.gradientEndColor = UIColor(Color("Main"))
+        dataSeries.gradientStartColor = UIColor(Color("Main"))
+        uiView.graphView.dataSeries = [dataSeries]
     }
 }
 
