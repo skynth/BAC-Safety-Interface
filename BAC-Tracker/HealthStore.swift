@@ -27,7 +27,7 @@ class HealthStore: ObservableObject {
 
         healthStore.save(bacSample) { success, error in
             if let error = error {
-                print("Error saving BAC data: \(error.localizedDescription)")
+                print("Error saving BAC data!: \(error.localizedDescription)")
             }
         }
     }
