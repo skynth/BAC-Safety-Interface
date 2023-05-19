@@ -1,6 +1,6 @@
 import HealthKit
 
-class HealthStore: ObservableObject {
+class HealthStore: ObservableObject { //View Model and the Health app serves as the model
     private let healthStore = HKHealthStore()
 
     init() {
@@ -47,9 +47,30 @@ class HealthStore: ObservableObject {
                 completion(0.0)
             }
         }
+        
 
         healthStore.execute(query)
     }
+    
+    func getAllBACData(completion: @escaping ([Double]) -> Void) {
+        guard let bacType = HKObjectType.quantityType(forIdentifier: .bloodAlcoholContent) else { return }
+
+        let sortDescriptor = NSSortDescriptor(key: HKSampleSortIdentifierStartDate, ascending: false)
+        let query = HKSampleQuery(sampleType: bacType, predicate: nil, limit: HKObjectQueryNoLimit, sortDescriptors: [sortDescriptor]) { _, samples, error in
+            if let error = error {
+                print("Error fetching BAC data: \(error.localizedDescription)")
+                completion([])
+            } else if let samples = samples as? [HKQuantitySample] {
+                let bacValues = samples.map { $0.quantity.doubleValue(for: HKUnit.percent()) }
+                completion(bacValues)
+            } else {
+                completion([])
+            }
+        }
+
+        healthStore.execute(query)
+    }
+
     
     
 }
