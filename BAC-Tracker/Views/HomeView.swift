@@ -12,61 +12,50 @@ struct HomeView: View {
     
     
     var body: some View {
+        NavigationView{
         ZStack {
-            Color("Background").ignoresSafeArea()
+            Image("background")
+                  .resizable()
+                  .scaledToFill()
+                  .edgesIgnoringSafeArea(.all)
+
             VStack {
                 Text("Sip wisely, stay lively")
                     .font(.title)
                     .fontWeight(.bold)
                     .foregroundColor(Color("Dark"))
-                    .padding(.bottom, 50)
+                    .padding(.bottom, 30)
+                    .padding(.top, 100)
+                
+                NavigationLink(
+                    destination: SessionView(),
+                    label: {
+                        Text("Start a Session")
+                            .frame(minWidth: 0, maxWidth: .infinity)
+                            .frame(height: 50)
+                            .foregroundColor(.white)
+                            .font(.system(size: 20, weight: .bold, design: .rounded))
+                            .background(Color("Main")).cornerRadius(15)
+                            .padding([.leading, .trailing], 30)
+                            .padding(.bottom, 100)
 
-                TextField("Enter your BAC", text: $bacInput)
-                    .padding()
-                    .cornerRadius(15)
-                    .keyboardType(.decimalPad)
-                    .padding([.leading, .trailing], 20)
-
-                Button(action: {
-                    if let bacValue = Double(bacInput) {
-                        healthStore.addBACData(bacValue: bacValue)
-                        healthStore.getLatestBAC { result in
-                            latestBAC = result //update latestBAC
-                        }
-                        healthStore.getAllBACData { result in
-                            allBACData = result //update AllBACData
-                        }
-                        bacInput = ""
-                    }
-                }) {
-                    Text("Submit BAC")
-                        .frame(minWidth: 0, maxWidth: .infinity)
-                        .frame(height: 50)
-                        .foregroundColor(.white)
-                        .font(.system(size: 20, weight: .bold, design: .rounded))
-                        .background(Color("Main")).cornerRadius(15)
-                        .padding([.leading, .trailing], 20)
-                }
-
-                HStack {
-                    Text("Latest BAC: ")
-                        .font(.title3)
-                        .fontWeight(.medium)
-                        .foregroundColor(Color("Dark"))
-
-                    Text("\(latestBAC, specifier: "%.3f")")
-                        .font(.title2)
+                    })
+                
+                HStack{
+                    Text("Drink History")
+                        .font(.title)
                         .fontWeight(.bold)
                         .foregroundColor(Color("Dark"))
+                        .padding([.leading, .trailing], 30)
+                    Spacer()
                 }
-                .padding(.top, 30)
                 
                 ChartView(data: allBACData)
                     .frame(height: 200)
-                    .padding([.leading, .trailing], 20)
-
+                    .padding([.leading, .trailing], 30)
+                Spacer()
             }
-        }
+        }}
         .onAppear {
             healthStore.getLatestBAC { result in
                 latestBAC = result
