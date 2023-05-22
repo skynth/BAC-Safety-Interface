@@ -8,8 +8,8 @@ class HealthStore: ObservableObject { //View Model and the Health app serves as 
     }
 
     private func requestAuthorization() {
-        let typesToShare: Set = [HKObjectType.quantityType(forIdentifier: .bloodAlcoholContent)!]
-        let typesToRead: Set = [HKObjectType.quantityType(forIdentifier: .bloodAlcoholContent)!]
+        let typesToShare: Set = [ HKObjectType.quantityType(forIdentifier: .bloodAlcoholContent)!]
+        let typesToRead: Set = [ HKObjectType.quantityType(forIdentifier: .bloodAlcoholContent)!]
 
         healthStore.requestAuthorization(toShare: typesToShare, read: typesToRead) { success, error in
             if let error = error {
@@ -70,7 +70,22 @@ class HealthStore: ObservableObject { //View Model and the Health app serves as 
 
         healthStore.execute(query)
     }
-
+    
+//    func setUpProfileRequest(){
+//
+//        if HKHealthStore.isHealthDataAvailable(){
+//            let infoToRead = Set([
+//                            HKSampleType.characteristicType(forIdentifier: .biologicalSex)!,
+//                            HKSampleType.quantityType(forIdentifier: HKQuantityTypeIdentifier.height)!,
+//                            HKSampleType.quantityType (forIdentifier: HKQuantityTypeIdentifier.bodyMass)!
+//                            ])
+//            healthStore.requestAuthorization(toShare: nil, read: infoToRead) { success, error in
+//                if let error = error {
+//                    print("Error requesting authorization: \(error.localizedDescription)")
+//                }
+//            }
+//        }
+//    }
     
     
 }

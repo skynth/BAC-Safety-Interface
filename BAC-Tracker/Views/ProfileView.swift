@@ -13,7 +13,64 @@ struct ProfileView: View {
             Color("Background")
                 .ignoresSafeArea()
             
-            Text("This is your profile!")
+            VStack {
+                Text("Profile")
+                    .font(.title)
+                    .fontWeight(.bold)
+                    .foregroundColor(Color("Main"))
+                    .padding(.bottom, 50)
+                    .padding(.top, 50)
+                HStack{
+                    Image(systemName : "ruler")
+                        .rotationEffect(Angle(degrees : 45))
+                        .imageScale(.large)
+                        .padding(.leading, 30)
+                        .padding(.bottom, 15)
+                    Text("Update Height")
+                        .font(.body)
+                        .fontWeight(.regular)
+                        .foregroundColor(Color.black)
+                        .padding(.leading, 10)
+                        .padding(.bottom, 15)
+                    Spacer()
+                }
+                Rectangle()
+                    .frame(height : 1)
+                    .foregroundColor(Color.gray)
+                    .padding(.bottom, 15)
+                HStack{
+                    Image(systemName : "scalemass")
+                        .imageScale(.large)
+                        .padding(.leading, 30)
+                        .padding(.bottom, 15)
+                    Text("Update Weight")
+                        .font(.body)
+                        .fontWeight(.regular)
+                        .foregroundColor(Color.black)
+                        .padding(.leading, 10)
+                        .padding(.bottom, 15)
+                    Spacer()
+                }
+                Rectangle()
+                    .frame(height : 1)
+                    .foregroundColor(Color.gray)
+                    .padding(.bottom, 15)
+                HStack{
+                    Image(systemName : "person")
+                        .imageScale(.large)
+                        .padding(.leading, 30)
+                        .padding(.bottom, 30)
+                    Text("Update Sex")
+                        .font(.body)
+                        .fontWeight(.regular)
+                        .foregroundColor(Color.black)
+                        .padding(.leading, 10)
+                        .padding(.bottom, 30)
+                    Spacer()
+                }
+            Spacer()
+            }
+            
         }
     }
 }
